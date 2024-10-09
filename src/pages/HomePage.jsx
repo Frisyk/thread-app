@@ -6,11 +6,11 @@ import { asyncDownvoteThread, asyncUpvoteThread } from '../states/threads/action
 import AddThreadButton from '../components/AddThreadButton';
 
 function HomePage() {
-  const {
-    threads = [],
-    users = [],
-    authUser,
-  } = useSelector((states) => states);
+  const { threads = [], users = [], authUser } = useSelector((state) => ({
+    threads: state.threads || [],
+    users: state.users || [],
+    authUser: state.authUser,
+  }));
 
   const dispatch = useDispatch();
 

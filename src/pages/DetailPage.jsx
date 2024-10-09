@@ -13,10 +13,10 @@ import { asyncDownvoteThread, asyncUpvoteThread } from '../states/threads/action
 
 function DetailPage() {
   const { id } = useParams();
-  const {
-    threadDetail = null,
-    authUser,
-  } = useSelector((states) => states);
+  const { threadDetail, authUser } = useSelector((state) => ({
+    threadDetail: state.threadDetail || null,
+    authUser: state.authUser,
+  }));
   const dispatch = useDispatch();
 
   useEffect(() => {

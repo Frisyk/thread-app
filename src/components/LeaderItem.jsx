@@ -24,7 +24,7 @@ const LeaderItemShape = {
   avatar: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  score: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 LeaderItem.propTypes = {
