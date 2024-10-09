@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { asyncPopulateUsersAndThreads } from '../states/shared/action';
 import ThreadsList from '../components/ThreadsList';
@@ -13,6 +13,7 @@ function HomePage() {
   }));
 
   const dispatch = useDispatch();
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   useEffect(() => {
     dispatch(asyncPopulateUsersAndThreads());
@@ -32,9 +33,28 @@ function HomePage() {
     authUser: authUser.id,
   }));
 
+  const filteredThreads = selectedCategory === 'All'
+    ? threadsList
+    : threadsList.filter((thread) => thread.category === selectedCategory);
+
+  const categories = ['All', ...new Set(threads.map((thread) => thread.category))];
+
   return (
     <section className="md:w-4/5 p-2 mx-auto">
-      <ThreadsList threads={threadsList} upvote={upVote} downvote={downVote} />
+      <div className="mb-4">
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="p-2 border rounded capitalize"
+        >
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
+      <ThreadsList threads={filteredThreads} upvote={upVote} downvote={downVote} />
       <AddThreadButton />
     </section>
   );
