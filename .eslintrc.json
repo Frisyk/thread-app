@@ -26,5 +26,5 @@
         "react-hooks/exhaustive-deps": "warn",
         "react/jsx-props-no-spreading": "off"
     },
-    "ignorePatterns": ["README.md", "index.html", "package-lock.json", "*.zip", "*.json"]
+    "ignorePatterns": ["README.md", "index.html", "*.zip"]
 }
