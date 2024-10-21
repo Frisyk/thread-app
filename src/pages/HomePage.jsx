@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { asyncPopulateUsersAndThreads } from '../states/shared/action';
 import ThreadsList from '../components/ThreadsList';
-import { asyncDownvoteThread, asyncUpvoteThread } from '../states/threads/action';
+import { asyncDownvoteThread, asyncNeutralizeThreadVote, asyncUpvoteThread } from '../states/threads/action';
 import AddThreadButton from '../components/AddThreadButton';
 
 function HomePage() {
@@ -25,6 +25,10 @@ function HomePage() {
 
   const downVote = (id) => {
     dispatch(asyncDownvoteThread(id));
+  };
+
+  const neutralizeVote = (id) => {
+    dispatch(asyncNeutralizeThreadVote(id));
   };
 
   const threadsList = threads.map((thread) => ({
@@ -54,7 +58,12 @@ function HomePage() {
           ))}
         </select>
       </div>
-      <ThreadsList threads={filteredThreads} upvote={upVote} downvote={downVote} />
+      <ThreadsList
+        threads={filteredThreads}
+        upvote={upVote}
+        downvote={downVote}
+        neutralizevote={neutralizeVote}
+      />
       <AddThreadButton />
     </section>
   );

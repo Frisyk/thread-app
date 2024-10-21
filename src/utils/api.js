@@ -174,7 +174,7 @@ const api = (() => {
     return responseJson.data.vote;
   }
 
-  async function neutralizeThreadVote({ threadId }) {
+  async function neutralizeThreadVote(threadId) {
     const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/neutral-vote`, {
       method: 'POST',
       headers: {

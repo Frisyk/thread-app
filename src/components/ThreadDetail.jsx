@@ -11,8 +11,10 @@ function ThreadDetail({
   authUser,
   upvote,
   downvote,
+  neutralizedvote,
   upvoteComment,
   downvoteComment,
+  neutralizedvoteComment,
   addComment,
 }) {
   const isUpvoted = upVotesBy.includes(authUser);
@@ -26,6 +28,11 @@ function ThreadDetail({
   const handleDownvote = (event) => {
     event.stopPropagation();
     downvote(id);
+  };
+
+  const handleNeutralizedvote = (event) => {
+    event.stopPropagation();
+    neutralizedvote(id);
   };
 
   return (
@@ -58,7 +65,7 @@ function ThreadDetail({
       <div className="flex space-x-4 mb-6">
         <button
           type="button"
-          onClick={handleUpvote}
+          onClick={!isUpvoted ? handleUpvote : handleNeutralizedvote}
           aria-label="Upvote thread"
           className={`flex items-center space-x-1 ${isUpvoted ? 'text-blue-600' : 'text-gray-600'} hover:text-blue-500`}
         >
@@ -67,7 +74,7 @@ function ThreadDetail({
         </button>
         <button
           type="button"
-          onClick={handleDownvote}
+          onClick={!isDownvoted ? handleDownvote : handleNeutralizedvote}
           aria-label="Downvote thread"
           className={`flex items-center space-x-1 ${isDownvoted ? 'text-red-600' : 'text-gray-600'} hover:text-red-500`}
         >
@@ -76,7 +83,6 @@ function ThreadDetail({
         </button>
       </div>
 
-      {/* Comments Section */}
       <div>
         <AddComment id={id} addComment={addComment} />
         <h3 className="text-xl font-semibold text-gray-800 mb-4">
@@ -93,6 +99,7 @@ function ThreadDetail({
               avatar={comment.owner?.avatar}
               upvote={upvoteComment}
               downvote={downvoteComment}
+              neutralizedvote={neutralizedvoteComment}
               content={comment.content}
               createdAt={comment.createdAt}
               downVotesBy={comment.downVotesBy}
@@ -140,8 +147,10 @@ ThreadDetail.propTypes = {
   authUser: PropTypes.string.isRequired,
   upvote: PropTypes.func.isRequired,
   downvote: PropTypes.func.isRequired,
+  neutralizedvote: PropTypes.func.isRequired,
   upvoteComment: PropTypes.func.isRequired,
   downvoteComment: PropTypes.func.isRequired,
+  neutralizedvoteComment: PropTypes.func.isRequired,
   addComment: PropTypes.func.isRequired,
 };
 

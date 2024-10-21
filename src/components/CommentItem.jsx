@@ -5,7 +5,12 @@ import { postedAt } from '../utils';
 export default function CommentItem({
   id,
   threadId,
-  avatar, name, createdAt, content, upvote, downvote, upVotesBy, downVotesBy, authUser,
+  avatar,
+  name,
+  createdAt,
+  content,
+  upvote, downvote, neutralizedvote,
+  upVotesBy, downVotesBy, authUser,
 }) {
   const upVoteClick = (event) => {
     event.stopPropagation();
@@ -15,6 +20,11 @@ export default function CommentItem({
   const downVoteClick = (event) => {
     event.stopPropagation();
     downvote(threadId, id);
+  };
+
+  const neutralizedVoteClick = (event) => {
+    event.stopPropagation();
+    neutralizedvote(threadId, id);
   };
 
   const isCommentUpvoted = upVotesBy.includes(authUser);
@@ -43,7 +53,7 @@ export default function CommentItem({
           <button
             type="button"
             aria-label="upvote"
-            onClick={upVoteClick}
+            onClick={!isCommentUpvoted ? upVoteClick : neutralizedVoteClick}
             className={`flex items-center space-x-1 ${isCommentUpvoted ? 'text-blue-600' : 'text-gray-600'} hover:text-blue-500 transition-colors duration-150 ease-in-out`}
           >
             <span>👍</span>
@@ -52,7 +62,7 @@ export default function CommentItem({
           <button
             type="button"
             aria-label="downvote"
-            onClick={downVoteClick}
+            onClick={!isCommentDownvoted ? downVoteClick : neutralizedVoteClick}
             className={`flex items-center space-x-1 ${isCommentDownvoted ? 'text-red-600' : 'text-gray-600'} hover:text-red-500 transition-colors duration-150 ease-in-out`}
           >
             <span>👎</span>
@@ -75,6 +85,7 @@ const CommentItemShape = {
   downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   upvote: PropTypes.func.isRequired,
   downvote: PropTypes.func.isRequired,
+  neutralizedvote: PropTypes.func.isRequired,
 };
 
 CommentItem.propTypes = {

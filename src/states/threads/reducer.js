@@ -47,8 +47,8 @@ function threadsReducer(threads = [], action = {}) {
         if (thread.id === action.payload.threadId) {
           return {
             ...thread,
-            upvotes: thread.upvotes.filter((id) => id !== action.payload.userId),
-            downvotes: thread.downvotes.filter((id) => id !== action.payload.userId),
+            upVotesBy: thread.upVotesBy.filter((id) => id !== action.payload.userId),
+            downVotesBy: thread.downVotesBy.filter((id) => id !== action.payload.userId),
           };
         }
         return thread;

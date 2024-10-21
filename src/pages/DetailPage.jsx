@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   asyncAddComment,
   asyncDownvoteComment,
+  asyncNeutralizeCommentVote,
+  asyncNeutralizeThreadVote,
   asyncReceiveThreadDetail,
   asyncUpvoteComment,
 } from '../states/threadDetail/action';
@@ -31,12 +33,20 @@ function DetailPage() {
     dispatch(asyncDownvoteThread(threadId));
   };
 
+  const neutralizedVote = (threadId) => {
+    dispatch(asyncNeutralizeThreadVote(threadId));
+  };
+
   const upvoteComment = (threadId, commentId) => {
     dispatch(asyncUpvoteComment(threadId, commentId));
   };
 
   const downVoteComment = (threadId, commentId) => {
     dispatch(asyncDownvoteComment(threadId, commentId));
+  };
+
+  const neutralizedVoteComment = (threadId, commentId) => {
+    dispatch(asyncNeutralizeCommentVote(threadId, commentId));
   };
 
   const onAddComment = (threadId, content) => {
@@ -55,8 +65,10 @@ function DetailPage() {
         authUser={authUser.id}
         upvote={upVote}
         downvote={downVote}
+        neutralizedvote={neutralizedVote}
         downvoteComment={downVoteComment}
         upvoteComment={upvoteComment}
+        neutralizedvoteComment={neutralizedVoteComment}
         addComment={onAddComment}
       />
     </section>

@@ -8,7 +8,8 @@ function ThreadItem({
   title,
   body,
   createdAt,
-  user, upVotesBy = [], downVotesBy = [], totalComments, category, authUser, upvote, downvote,
+  user, upVotesBy = [], downVotesBy = [], totalComments, category, authUser,
+  upvote, downvote, neutralizevote,
 }) {
   const navigate = useNavigate();
 
@@ -32,6 +33,11 @@ function ThreadItem({
   const downVoteClick = (event) => {
     event.stopPropagation();
     downvote(id);
+  };
+
+  const neutralizeVoteClick = (event) => {
+    event.stopPropagation();
+    neutralizevote(id);
   };
 
   const isThreadUpvoted = upVotesBy.includes(authUser);
@@ -85,7 +91,7 @@ function ThreadItem({
               <button
                 type="button"
                 aria-label="upvote"
-                onClick={upVoteClick}
+                onClick={!isThreadUpvoted ? upVoteClick : neutralizeVoteClick}
                 className={`flex items-center space-x-1 ${isThreadUpvoted ? 'text-blue-600' : 'text-gray-600'} hover:text-blue-500 transition-colors duration-150 ease-in-out`}
               >
                 <span>👍</span>
@@ -94,7 +100,7 @@ function ThreadItem({
               <button
                 type="button"
                 aria-label="downvote"
-                onClick={downVoteClick}
+                onClick={!isThreadDownvoted ? downVoteClick : neutralizeVoteClick}
                 className={`flex items-center space-x-1 ${isThreadDownvoted ? 'text-red-600' : 'text-gray-600'} hover:text-red-500 transition-colors duration-150 ease-in-out`}
               >
                 <span>👎</span>
@@ -132,6 +138,7 @@ const ThreadItemShape = {
   authUser: PropTypes.string.isRequired,
   upvote: PropTypes.func.isRequired,
   downvote: PropTypes.func.isRequired,
+  neutralizevote: PropTypes.func.isRequired,
 };
 
 ThreadItem.propTypes = {

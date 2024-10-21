@@ -3,11 +3,7 @@ import { ActionType } from './action';
 function threadDetailReducer(threadDetail = null, action = {}) {
   switch (action.type) {
     case ActionType.RECEIVE_THREAD_DETAIL:
-      return {
-        ...action.payload.threadDetail,
-        upVotesBy: action.payload.threadDetail.upVotesBy || [],
-        downVotesBy: action.payload.threadDetail.downVotesBy || [],
-      };
+      return action.payload.threadDetail;
 
     case ActionType.CLEAR_THREAD_DETAIL:
       return null;
@@ -38,6 +34,16 @@ function threadDetailReducer(threadDetail = null, action = {}) {
           upVotesBy: threadDetail.upVotesBy.includes(action.payload.userId)
             ? threadDetail.upVotesBy.filter((id) => id !== action.payload.userId)
             : threadDetail.upVotesBy,
+        };
+      }
+      return threadDetail;
+
+    case ActionType.NEUTRALIZE_VOTE_THREAD:
+      if (threadDetail.id === action.payload.threadId) {
+        return {
+          ...threadDetail,
+          upVotesBy: threadDetail.upVotesBy.filter((id) => id !== action.payload.userId),
+          downVotesBy: threadDetail.downVotesBy.filter((id) => id !== action.payload.userId),
         };
       }
       return threadDetail;
