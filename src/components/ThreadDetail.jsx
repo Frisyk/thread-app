@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { postedAt } from '../utils'; // Assuming you have a utility to format dates
+import { postedAt } from '../utils';
 import CommentItem from './CommentItem';
 import AddComment from './AddComment';
 
@@ -116,7 +116,6 @@ function ThreadDetail({
   );
 }
 
-// PropTypes validation
 ThreadDetail.propTypes = {
   thread: PropTypes.shape({
     id: PropTypes.string.isRequired,
