@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import useInput from '../hooks/useInput';
+import Input from './ui/Inputcomp.tsx';
+import Button from './ui/Buttoncomp.tsx';
 
 function RegisterInput({ register }) {
   const [name, onNameChange] = useInput('');
@@ -9,34 +11,29 @@ function RegisterInput({ register }) {
 
   return (
     <form className="register-input space-y-4">
-      <input
+      <Input
         type="text"
         value={name}
         onChange={onNameChange}
         placeholder="Name"
-        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200 focus:border-blue-500"
       />
-      <input
+      <Input
         type="email"
         value={email}
         onChange={onEmailChange}
         placeholder="Email"
-        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200 focus:border-blue-500"
       />
-      <input
+      <Input
         type="password"
         value={password}
         onChange={onPasswordChange}
         placeholder="Password"
-        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200 focus:border-blue-500"
       />
-      <button
-        type="button"
+      <Button
         onClick={() => register({ name, email, password })}
-        className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition-colors duration-150 ease-in-out"
-      >
-        Register
-      </button>
+        context="Register"
+        className="w-full bg-blue-600 text-white hover:bg-blue-500"
+      />
     </form>
   );
 }

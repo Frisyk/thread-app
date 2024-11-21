@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import useInput from '../hooks/useInput';
+import Input from './ui/Inputcomp.tsx';
+import Button from './ui/Buttoncomp.tsx';
 
 function LoginInput({ login }) {
   const [email, onEmailChange] = useInput('');
@@ -8,29 +10,26 @@ function LoginInput({ login }) {
 
   return (
     <form className="login-input flex flex-col space-y-4 p-6 max-w-sm mx-auto bg-white">
-      <input
+      <Input
         type="email"
         value={email}
         onChange={onEmailChange}
         placeholder="email@gmail.com"
-        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
       />
 
-      <input
+      <Input
         type="password"
         value={password}
         onChange={onPasswordChange}
         placeholder="Password"
-        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
       />
 
-      <button
-        type="button"
+      <Button
         onClick={() => login({ email, password })}
-        className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-200 ease-in-out"
-      >
-        Login
-      </button>
+        context="Login"
+        className="w-full bg-blue-600 text-white hover:bg-blue-700"
+      />
+
     </form>
   );
 }

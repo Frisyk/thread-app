@@ -6,7 +6,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "airbnb",
+        "plugin:storybook/recommended"
     ],
     "overrides": [],
     "parserOptions": {
@@ -26,5 +27,11 @@
         "react-hooks/exhaustive-deps": "warn",
         "react/jsx-props-no-spreading": "off"
     },
-    "ignorePatterns": ["README.md", "index.html", "package-lock.json", "*.zip", "*.json"]
+    "ignorePatterns": [
+        "README.md",
+        "index.html",
+        "package-lock.json",
+        "*.zip",
+        "*.json"
+    ]
 }

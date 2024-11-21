@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import useInput from '../hooks/useInput';
+import Button from './ui/Buttoncomp.tsx';
 
 function AddThreadInput({ addThread }) {
   const [title, onTitleChange] = useInput('');
@@ -67,12 +68,12 @@ function AddThreadInput({ addThread }) {
               </select>
             </div>
 
-            <button
-              className="w-full bg-blue-800 text-blue-50 py-4 text-lg mt-5 font-bold px-4 rounded-lg hover:bg-blue-400 transition duration-300"
+            <Button
               type="submit"
-            >
-              Tambahkan Thread
-            </button>
+              context="Tambahkan Thread"
+              className="w-full bg-blue-800 text-blue-50 py-4 text-lg mt-5 font-bold hover:bg-blue-400"
+            />
+
           </form>
         </div>
       </div>
